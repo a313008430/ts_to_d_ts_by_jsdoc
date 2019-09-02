@@ -1,0 +1,11 @@
+{
+    "plugins": [
+        "es6-fix"
+    ],
+    "opts": {
+        "recurse": true,
+        "destination": "./dist/",
+        "template": "./node_modules/tsd-jsdoc/dist",
+        "outFile": "pixi.js.d.ts"
+    }
+}

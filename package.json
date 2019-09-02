@@ -1,0 +1,20 @@
+{
+  "name": "jsdoc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@pixi/jsdoc-template": "^2.4.3",
+    "gulp": "^4.0.2",
+    "gulp-jsdoc3": "^2.0.0",
+    "rollup": "^1.20.3",
+    "rollup-plugin-typescript2": "^0.24.0",
+    "tsd-jsdoc": "^2.4.0",
+    "typescript": "^3.6.2"
+  }
+}
