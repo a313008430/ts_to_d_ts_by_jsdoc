@@ -10,22 +10,13 @@ var Core = (function (exports) {
         /**
          * 添加一个子集
          * @protected
+         * @param data {T}
+          * @template T 
          * @returns {logic}
          */
         addChild() {
         }
     }
 
-    /**
-     * @memberof Core
-     * @extends Core.logic
-     */
-    class game extends logic {
-    }
-
-    exports.game = game;
-    exports.logic = logic;
-
-    return exports;
 
 }({}));

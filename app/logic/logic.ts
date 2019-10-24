@@ -9,6 +9,7 @@ export default class logic {
      * @protected
      * @returns {logic}
      */
+    
     addChild(){
 
     }

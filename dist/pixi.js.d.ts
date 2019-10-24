@@ -9,21 +9,10 @@ declare namespace Core {
         /**
          * 添加一个子集
          * @protected
+         * @param data {T}
          * @returns {logic}
          */
-        protected addChild(): logic;
-    }
-    /**
-     * @memberof Core
-     * @extends Core.logic
-     */
-    class game extends Core.logic {
-        /**
-         * 添加一个子集
-         * @protected
-         * @returns {logic}
-         */
-        protected addChild(): logic;
+        protected addChild<T>(data: T): logic;
     }
 }
 

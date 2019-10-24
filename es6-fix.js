@@ -1,51 +1,29 @@
-// JSDoc has issues getting the name of `export default class NAME {}`
-// this gross regex hacks around that issue until it is fixed.
-// See: https://github.com/jsdoc3/jsdoc/issues/1137#issuecomment-174829004
-
-//这个算是jsdoc的一个插件，去pixijs里面引用过来的
-//，如果为export default的时候会出错
-//后期看怎么优化
-
-var rgxGross = /(\/\*{2}[\W\w]+?\*\/)\s*export\s+class\s+([^\s]*)/g;
-var rgxGrossDefault = /(\/\*{2}[\W\w]+?\*\/)\s*export\s+default\s+class\s+([^\s]*)/g;
-var grossReplace = 'export default $2;\n\n$1\nclass $2';
-
-// JSDoc has issues with expressing member properties within a class
-// this is another terrible hack to address this issue.
-// See: https://github.com/jsdoc3/jsdoc/issues/1301
-
-var rgxMember = /(\@member \{[^\}]+\})(\n[^\/]+\/[\b\s]+)(this\.([^\s]+))/g;
-var rgxClassName = /export (default )?class (.+?)\s/;
-var rgxNamespace = /\@memberof ([\.a-zA-Z0-9]+)\s/;
+/**
+ * 删除包含指定字符 的一行
+ */
+function clearLineByChars(str, chars) {
+    return str.replace(new RegExp(`.+(?=${chars}).+\r\n`), '');
+}
 
 exports.handlers = {
-    /**
-     * Called before parsing a file, giving us a change to replace the source.
-     *
-     * @param {*} e - The `beforeParse` event data.
-     * @param {string} e.filename - The name of the file being parsed.
-     * @param {string} e.source - The source of the file being parsed.
-     */
-    beforeParse: function beforeParse(e)
-    {
-        
-        var namespace = e.source.match(rgxNamespace);
-        var className = e.source.match(rgxClassName);
-
-        // Fix members not showing up attached to class
-        if (namespace && className)
-        {
-            // Replaces "@member {Type}"" with "@member {Type} PIXI.ClassName#prop"
-            e.source = e.source.replace(rgxMember, '$1 '+ namespace[1] + '.' + className[2] + '#$4$2$3');
+    newDoclet: function (e) {
+        //如果当前newDoclet有template标签 测添加
+        if (e.doclet['template']) {
+            e.doclet.name += `<${e.doclet['template']}>`;
+            e.doclet.comment = clearLineByChars(e.doclet.comment, 'template');
         }
 
-        if(e.source.match(rgxGrossDefault))
-        {
-            e.source = e.source.replace(rgxGrossDefault, grossReplace);
-        }
-        else
-        {
-            e.source = e.source.replace(rgxGross, grossReplace);
-        }
     },
 };
+
+exports.defineTags = function (dictionary) {
+    /**
+     * 检测标签 template
+     * 并把值传给 newDoclet
+     */
+    dictionary.defineTag('template', {
+        onTagged: function (e, tag) {
+            e[tag.title] = tag.value;
+        }
+    });
+}
