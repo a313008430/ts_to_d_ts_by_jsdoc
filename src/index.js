@@ -11,7 +11,7 @@ var Core = (function (exports) {
          * 添加一个子集
          * @protected
          * @param data {T}
-          * @template T 
+         * @template T 
          * @returns {logic}
          */
         addChild() {

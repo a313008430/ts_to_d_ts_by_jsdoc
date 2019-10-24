@@ -8,7 +8,6 @@ declare namespace Core {
     class logic {
         /**
          * 添加一个子集
-         * @protected
          * @param data {T}
          * @returns {logic}
          */

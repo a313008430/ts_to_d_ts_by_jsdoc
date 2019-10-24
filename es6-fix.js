@@ -7,6 +7,7 @@ function clearLineByChars(str, chars) {
 
 exports.handlers = {
     newDoclet: function (e) {
+        e.doclet.comment = clearLineByChars(e.doclet.comment, 'protected');
         //如果当前newDoclet有template标签 测添加
         if (e.doclet['template']) {
             e.doclet.name += `<${e.doclet['template']}>`;
