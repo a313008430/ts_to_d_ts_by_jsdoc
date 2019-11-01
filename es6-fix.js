@@ -12,9 +12,10 @@ exports.handlers = {
         if (e.doclet['template']) {
             e.doclet.name += `<${e.doclet['template']}>`;
             e.doclet.comment = clearLineByChars(e.doclet.comment, 'template');
+            e.doclet.params[0].type.names = ['{prototype:T}'];
         }
 
-    },
+    }
 };
 
 exports.defineTags = function (dictionary) {
@@ -27,4 +28,18 @@ exports.defineTags = function (dictionary) {
             e[tag.title] = tag.value;
         }
     });
+
+    // dictionary.defineTag('param', {
+    //     canHaveType: true,
+    //     onTagged: function (e, tag) {
+    //         console.log(e)
+    //     }
+    // });
 }
+
+// exports.astNodeVisitor = {
+//     visitNode: function(node, e, parser, currentSourceName) {
+//         console.log(2222)
+//         console.log(node)
+//     }
+// };
